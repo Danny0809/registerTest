@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -40,6 +41,7 @@ class ProfileDetailFragment: Fragment() {
     private lateinit var et_link : EditText
     private lateinit var tv_phone : TextView
     private lateinit var tv_major : TextView
+    private lateinit var imgv_peer : ImageView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -67,6 +69,7 @@ class ProfileDetailFragment: Fragment() {
         et_link = view.findViewById(R.id.et_profilecardDetail_link)
         tv_phone = view.findViewById(R.id.tv_profilecardDetail_phone)
         tv_major = view.findViewById(R.id.tv_profilecardDetail_major)
+        imgv_peer = view.findViewById(R.id.imgv_profiledetail_peer)
 
         imgb_picture.clipToOutline = true
         imgb_picture.visibility = View.VISIBLE
@@ -192,6 +195,7 @@ class ProfileDetailFragment: Fragment() {
                         val personalLink = it.personalLink ?: ""
                         val projectExperience = it.projectExperience ?: false
                         val role = it.role ?: ""
+                        val peer = it.peer ?: 0
 
                         val birthday = it.member?.birthday ?: ""
                         val email = it.member?.email ?: ""
@@ -200,7 +204,6 @@ class ProfileDetailFragment: Fragment() {
                         val phoneNumber = it.member?.phoneNumber ?: ""
 
                         //UI에 저장()
-
                         et_nickname.setText(nickname)
                         et_email.setText(email)
                         et_introduce.setText(instruction)
@@ -210,6 +213,15 @@ class ProfileDetailFragment: Fragment() {
                         et_link.setText(personalLink)
                         tv_phone.text = phoneNumber
                         tv_major.text = major
+
+                        //피어 이미지
+                        when(peer){
+                            in 0..19 -> imgv_peer.setImageResource(R.drawable.profilecard_detail_peer0_19)
+                            in 20..39 -> imgv_peer.setImageResource(R.drawable.profilecard_detail_peer20_39)
+                            in 40..59 -> imgv_peer.setImageResource(R.drawable.profilecard_detail_peer40_59)
+                            in 60..79 -> imgv_peer.setImageResource(R.drawable.profilecard_detail_peer60_79)
+                            in 80..100 -> imgv_peer.setImageResource(R.drawable.profilecard_detail_peer80_100)
+                        }
 
                         if(projectExperience == true)
                         {
